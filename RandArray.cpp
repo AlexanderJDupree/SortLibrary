@@ -3,9 +3,11 @@
 #include <set>
 #include "RandArray.h"
 
-Random::Random() { return; }
+template<class T>
+Random<T>::Random() { return; }
 
-void Random::fillUnique(int ara[], int _max, int _min, int SIZE)
+template<class T>
+void Random<T>::fillUnique(T ara[], int _max, int _min, int SIZE)
 {
     int ceiling;
     if (_min < 0) { ceiling = _max + (_min * -1); }
@@ -29,7 +31,8 @@ void Random::fillUnique(int ara[], int _max, int _min, int SIZE)
     return;
 }
 
-void Random::fillRandom(int ara[], int _max, int _min, int SIZE)
+template<class T>
+void Random<T>::fillRandom(T ara[], int _max, int _min, int SIZE)
 {
     int ceiling;
     if (_min < 0) { ceiling = _max + (_min * -1); }
@@ -43,7 +46,8 @@ void Random::fillRandom(int ara[], int _max, int _min, int SIZE)
     return;
 }
 
-void Random::fillUniqueSorted(int ara[], int _max, int _min, int SIZE)
+template<class T>
+void Random<T>::fillUniqueSorted(T ara[], int _max, int _min, int SIZE)
 {
     int ceiling;
     if (_min < 0) { ceiling = _max + (_min * -1); }
@@ -66,7 +70,22 @@ void Random::fillUniqueSorted(int ara[], int _max, int _min, int SIZE)
     return;
 }
 
-void Random::shuffle(int ara[], int SIZE)
+template<class T>
+void Random<T>::fillFloat(float ara[], int _max, int _min, int SIZE)
+{
+    if (_max == _min) { return; }
+    // prevents divide by zero 
+    
+    srand(time(NULL));
+    for (int i = 0; i < SIZE; i++)
+    {
+        ara[i] = _min + rand() / (static_cast<float> (RAND_MAX/(_max - _min)));
+    }
+    return;
+}
+
+template<class T>
+void Random<T>::shuffle(T ara[], int SIZE)
 {
     srand (time(NULL));
 

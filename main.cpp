@@ -16,26 +16,30 @@
 #include "RandArray.h"
 #include <iostream>
 
-void printArray(const int ara[], const int SIZE, std::string araName);
+template <class T>
+void printArray(const T ara[], const int SIZE, std::string araName);
 
 int main()
 {
     const int SIZE = 50;
     const int VALUE_MAX = 100;
 
-    int ara[SIZE];
-    Random randomizer;
+    float ara[SIZE];
+    Random<float> randomizer;
 
-    randomizer.fillUnique(ara, VALUE_MAX, -100, SIZE);
-
+    randomizer.fillFloat(ara, VALUE_MAX, 0, SIZE);
     
     printArray(ara, SIZE, "Unsorted Array: ");
 
+    randomizer.shuffle(ara, SIZE);
+
+    printArray(ara, SIZE, "SHUFFLED: ");
 
     return 0;
 }
 
-void printArray(const int ara[], const int SIZE, std::string araName)
+template<class T>
+void printArray(const T ara[], const int SIZE, std::string araName)
 {
     std::cout << araName << std::endl;
     for (int i = 0; i < SIZE; i++)
