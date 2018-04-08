@@ -9,16 +9,14 @@ Random<T>::Random() { return; }
 template<class T>
 void Random<T>::fillUnique(T ara[], int _max, int _min, int SIZE)
 {
-    int ceiling;
-    if (_min < 0) { ceiling = _max + (_min * -1); }
-    else { ceiling = _max; }
- 
+    int range = _max - _min;
+
     unsigned int m_size = SIZE;
     std::set<int> randSet; 
     srand(time(NULL));
     while (randSet.size() < m_size)
     {
-        randSet.insert((rand() % ceiling) + _min);
+        randSet.insert(_min + (std::rand() % (range + 1)));
     }
     // Copy the values from the unique set over to the rand array.
     std::set<int>::iterator it = randSet.begin();
@@ -34,14 +32,11 @@ void Random<T>::fillUnique(T ara[], int _max, int _min, int SIZE)
 template<class T>
 void Random<T>::fillRandom(T ara[], int _max, int _min, int SIZE)
 {
-    int ceiling;
-    if (_min < 0) { ceiling = _max + (_min * -1); }
-    else { ceiling = _max; }
     
     srand(time(NULL));
     for (int i = 0; i < SIZE; i++)
     {
-        ara[i] = (rand() % ceiling) + _min;
+        ara[i] = _min + (std::rand() % (_max - _min + 1)); 
     }
     return;
 }
@@ -49,16 +44,13 @@ void Random<T>::fillRandom(T ara[], int _max, int _min, int SIZE)
 template<class T>
 void Random<T>::fillUniqueSorted(T ara[], int _max, int _min, int SIZE)
 {
-    int ceiling;
-    if (_min < 0) { ceiling = _max + (_min * -1); }
-    else { ceiling = _max; }
  
     unsigned int m_size = SIZE;
     std::set<int> randSet; 
     srand(time(NULL));
     while (randSet.size() < m_size)
     {
-        randSet.insert((rand() % ceiling) + _min);
+        randSet.insert(_min + (std::rand() % (_max - _min + 1)));
     }
     // Copy the values from the unique set over to the rand array.
     std::set<int>::iterator it = randSet.begin();

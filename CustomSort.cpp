@@ -1,6 +1,7 @@
 #include "CustomSort.h"
 
-Sort::Custom::Custom(const int VALUE_MAX) : m_size(VALUE_MAX)
+template<class T>
+Sort<T>::Custom::Custom(const int VALUE_MAX) : m_size(VALUE_MAX)
 {
     m_initArray = new int[m_size];
     for (unsigned int i = 0; i < m_size; i++)
@@ -9,13 +10,15 @@ Sort::Custom::Custom(const int VALUE_MAX) : m_size(VALUE_MAX)
     }
 }
 
-Sort::Custom::~Custom()
+template<class T>
+Sort<T>::Custom::~Custom()
 {
     delete [] m_initArray;
     m_initArray = 0;
 }
 
-void Sort::Custom::imprintValues(const int ara[], const int SIZE)
+template<class T>
+void Sort<T>::Custom::imprintValues(const int ara[], const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
     {
@@ -24,7 +27,8 @@ void Sort::Custom::imprintValues(const int ara[], const int SIZE)
     return;
 }
 
-void Sort::Custom::getSortedValues(int ara[], const int SIZE)
+template<class T>
+void Sort<T>::Custom::getSortedValues(int ara[], const int SIZE)
 {
     int i = 0;
     int index = 0;
@@ -40,7 +44,8 @@ void Sort::Custom::getSortedValues(int ara[], const int SIZE)
     return;
 }
 
-void Sort::custom(int ara[], const int VALUE_MAX, const int SIZE)
+template<class T>
+void Sort<T>::custom(int ara[], const int VALUE_MAX, const int SIZE)
 {
     Sort::Custom customSort(VALUE_MAX);
     customSort.imprintValues(ara, SIZE);
@@ -48,7 +53,8 @@ void Sort::custom(int ara[], const int VALUE_MAX, const int SIZE)
     return;
 }
 
-void Sort::bubble(int ara[], int SIZE)
+template<class T>
+void Sort<T>::bubble(T ara[], int SIZE)
 {
     bool isSwap = false;
 
@@ -59,7 +65,7 @@ void Sort::bubble(int ara[], int SIZE)
     {
         if (ara[i] > ara[i+1])
         {
-            int temp = ara[i];
+            T temp = ara[i];
             ara[i] = ara[i+1];
             ara[i+1] = temp;
             isSwap = true;
@@ -69,7 +75,8 @@ void Sort::bubble(int ara[], int SIZE)
     else { return; }
 }
 
-void Sort::selection(int ara[], int SIZE)
+template<class T>
+void Sort<T>::selection(T ara[], int SIZE)
 {
     // Base case
     if (SIZE == 0) { return; }
@@ -82,19 +89,22 @@ void Sort::selection(int ara[], int SIZE)
             largest = i;
         }
     }
-    int temp = ara[largest];
+    T temp = ara[largest];
     ara[largest] = ara[SIZE-1];
     ara[SIZE-1] = temp;
     selection(ara, SIZE - 1);
 }
 
-void Sort::insertion(int ara[], int start, int SIZE)
+template<class T>
+void Sort<T>::insertion(T ara[], int start, int SIZE)
 {
     // base case
     if (start >= SIZE ) { return; }
 
-    int i = start;
-    for(i; i > 0; i--)
+    int i;
+    // i is declared in function scope so we can use it later on
+    
+    for(i = start; i > 0; i--)
     {
         if (ara[start] > ara[i-1]) { break; }
     }
@@ -102,7 +112,7 @@ void Sort::insertion(int ara[], int start, int SIZE)
     // Shift every element larger than ara[start] over one position.
     for (int j = start; j > i; j--)
     {
-        int temp = ara[j-1];
+        T temp = ara[j-1];
         ara[j-1] = ara[j];
         ara[j] = temp;
     }

@@ -1,9 +1,21 @@
 /******************************************************************************
-* RandArray class purpose is to generate an array of random unique positive
-* integers from 0 - n. It utilizes a set container to achieve this, and then
-* Shuffles the array. RandArray utilizes name space Random to further abstract
-* Its functions from the user. The user just has to call Random::randomize()
-* to generate a set of unique random positive integers.
+* Class: Random
+*
+* Description: Random class provides the user with a variety of methods to fill
+* an array with unique or duplicative random elements. Random is a templated 
+* class that can "randomize" an array of any primitive data type.
+*
+* Author: Alexander DuPree
+*
+* Modifications:
+*
+* 30-MAR-18 - Refactored Random code base. Got rid of "random" namespace and 
+*             moved the functions into the class Random
+*
+* 06-APR-18 - Templated Random class, updated comments.
+*
+* TODO Ensure unique sort does not try to fill an array where the min/max range
+*      less than the actual size of the array
 ******************************************************************************/
 
 
@@ -33,12 +45,12 @@ public:
     // ascending order.
     
     void fillFloat(float ara[], int _max, int _min, int SIZE);
-    // Takes in a floating point array and generates random numbers.
+    // Takes in a floating point array and generates random numbers floating 
+    // point numbers by diving rand() by RAND_MAX.
 
     void shuffle(T ara[], int SIZE);
-    // shuffles a m_randAra to make it unsorted. Used in conjunction with
-    // fillUnique. The nature of using a set to fill an array requires
-    // that we shuffle it afterwards.
+    // Loops through the array and grabs the current index and replaces it with
+    // random one. 
 
 };
 
