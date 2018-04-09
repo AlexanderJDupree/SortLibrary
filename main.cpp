@@ -26,25 +26,28 @@ void printTime(std::clock_t time, std::string text);
 
 int main()
 {
-    const int SIZE = 100;
+    const int SIZE = 10;
+    const int _MIN = 0;
+    const int _MAX = 10; 
     std::clock_t time;
 
-    float ara[SIZE];
-    float bubbleAra[SIZE],
+    int ara[SIZE];
+    int bubbleAra[SIZE],
         selectionAra[SIZE],
-        insertionAra[SIZE], //customAra[SIZE],
-        quickAra[SIZE];
+        insertionAra[SIZE],
+        quickAra[SIZE], 
+        countingAra[SIZE];
 
-    Random<float> randomizer;
+    Random<int> randomizer;
 
-    randomizer.fillFloat(ara, 1000, -1000, SIZE);
+    randomizer.fillRandom(ara, _MAX, _MIN, SIZE);
     copyAra(ara, bubbleAra, SIZE);
     copyAra(ara, selectionAra, SIZE);
     copyAra(ara, insertionAra, SIZE);
-    //copyAra(ara, customAra, SIZE);
     copyAra(ara, quickAra, SIZE);
+    copyAra(ara, countingAra, SIZE);
 
-    Sort<float> sort;
+    Sort<int> sort;
 
     time = std::clock();
     sort.bubble(bubbleAra, SIZE);
@@ -61,17 +64,23 @@ int main()
     time = std::clock() - time;
     printTime(time, "Insertion Sort ");
     
-    //time = std::clock();
-    //sort.custom(customAra, 10000, SIZE);
-    //time = std::clock() - time;
-    //printTime(time, "Custom Sort ");
-    
     time = std::clock();
     sort.quick(quickAra, 0, SIZE-1);
     time = std::clock() - time;
     printTime(time, "Quick Sort ");
     
-    //printArray(quickAra, SIZE, "Quick sort: ");
+    time = std::clock();
+    sort.counting(countingAra, SIZE, _MAX, _MIN);
+    time = std::clock() - time;
+    printTime(time, "Counting Sort ");
+    
+//    printArray(ara, SIZE, "Original: ");
+//    printArray(bubbleAra, SIZE, "Bubble: ");
+//    printArray(selectionAra, SIZE, "Selection: ");
+//    printArray(insertionAra, SIZE, "Insertion: ");
+//    printArray(quickAra, SIZE, "Quick Sort: ");
+//    printArray(countingAra, SIZE, "Counting: ");
+
     
     return 0;
 }

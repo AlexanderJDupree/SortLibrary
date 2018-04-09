@@ -1,56 +1,43 @@
 #include "sort.h"
 
 template<class T>
-Sort<T>::Custom::Custom(const int VALUE_MAX) : m_size(VALUE_MAX)
+void Sort<T>::counting(int ara[], const int SIZE, const int _max, const int _min)
 {
-    m_initArray = new int[m_size];
-    for (unsigned int i = 0; i < m_size; i++)
+    int offset = _min * -1;
+    const int RANGE = _max + offset + 1;
+
+    // initialize count array to 0
+    int count[RANGE];
+    for (int i = 0; i < RANGE; i++)
     {
-        m_initArray[i] = -1;
+        count[i] = 0;
     }
-}
 
-template<class T>
-Sort<T>::Custom::~Custom()
-{
-    delete [] m_initArray;
-    m_initArray = 0;
-}
-
-template<class T>
-void Sort<T>::Custom::imprintValues(const int ara[], const int SIZE)
-{
+    // count values in the original array
     for (int i = 0; i < SIZE; i++)
     {
-        m_initArray[ara[i]] = ara[i];
+        count[ara[i] + offset]++;
     }
-    return;
-}
 
-template<class T>
-void Sort<T>::Custom::getSortedValues(int ara[], const int SIZE)
-{
-    int i = 0;
-    int index = 0;
-    while (index < SIZE)
+    // sum the count;
+    for (int i = 1; i <= RANGE; i++)
     {
-        if (m_initArray[i] != -1)
-        {
-            ara[index] = m_initArray[i];
-            index++;
-        }
-        i++;
+        count[i] += count[i - 1];
     }
-    return;
-}
+    
+    // sort the original array into temp array;
+    int temp[SIZE];
+    for (int i = 0; i < SIZE; i++)
+    {
+       temp[count[ara[i] + offset] - 1] = ara[i];
+       count[ara[i] + offset]--;
+    }
 
-template<class T>
-void Sort<T>::custom(int ara[], const int VALUE_MAX, const int SIZE)
-{
-    Sort::Custom customSort(VALUE_MAX);
-    customSort.imprintValues(ara, SIZE);
-    customSort.getSortedValues(ara, SIZE);
-    return;
+    // Copy sorted values over to original array
+    for (int i = 0; i < SIZE; i++)
+    {
+        ara[i] = temp[i];
+    }
 }
 
 template<class T>
@@ -166,3 +153,4 @@ int Sort<T>::partition(T ara[], int left, int right)
     return (i + 1);
 
 }
+
