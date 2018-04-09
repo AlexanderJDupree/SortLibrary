@@ -1,4 +1,4 @@
-#include "CustomSort.h"
+#include "sort.h"
 
 template<class T>
 Sort<T>::Custom::Custom(const int VALUE_MAX) : m_size(VALUE_MAX)
@@ -119,3 +119,50 @@ void Sort<T>::insertion(T ara[], int start, int SIZE)
     insertion(ara, start + 1, SIZE);
 }
 
+template<class T>
+void Sort<T>::quick(T ara[], int left, int right)
+{
+    // Base case
+    if (left >= right) { return; }
+
+    int part = partition(ara, left, right);
+    
+    quick(ara, left, part - 1);
+    // Quick sort left partition
+    
+    quick(ara, part + 1, right);
+    // Quick sort right partition
+}
+
+// private 
+
+template<class T>
+int Sort<T>::partition(T ara[], int left, int right)
+{
+    /* Partition takes the right most element as the pivot, places the pivot in
+       correct index in the array and arranges elements greater than pivot to 
+       the right and less than or equal to pivot to the left */
+
+    const T pivot = ara[right];
+    int i = left - 1;
+    // index of smaller element
+
+    for (int j = left; j <= right - 1; j++)
+    {
+        // if current element is smaller or equal to pivot we switch with i
+        if (ara[j] <= pivot)
+        {
+            i++;
+            T temp = ara[i];
+            ara[i] = ara[j];
+            ara[j] = temp;
+        }
+    }
+    // Swap pivot to the correct index in the array
+    T temp = ara[i+1];
+    ara[i+1] = ara[right];
+    ara[right] = temp;
+
+    return (i + 1);
+
+}

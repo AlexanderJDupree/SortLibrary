@@ -15,8 +15,8 @@
 
 #include <iostream>
 #include <ctime>
-#include "RandArray.h"
-#include "CustomSort.h"
+#include "randArray.h"
+#include "sort.h"
 
 template<class T>
 void copyAra(const T ara1[], T ara2[], int SIZE);
@@ -26,29 +26,30 @@ void printTime(std::clock_t time, std::string text);
 
 int main()
 {
-    const int SIZE = 100000;
+    const int SIZE = 100;
     std::clock_t time;
 
-    int ara[SIZE];
-    int bubbleAra[SIZE],
+    float ara[SIZE];
+    float bubbleAra[SIZE],
         selectionAra[SIZE],
-        insertionAra[SIZE], 
-        customAra[SIZE];
+        insertionAra[SIZE], //customAra[SIZE],
+        quickAra[SIZE];
 
-    Random<int> randomizer;
+    Random<float> randomizer;
 
-    randomizer.fillUnique(ara, 100000, 0, SIZE);
-    //copyAra(ara, bubbleAra, SIZE);
+    randomizer.fillFloat(ara, 1000, -1000, SIZE);
+    copyAra(ara, bubbleAra, SIZE);
     copyAra(ara, selectionAra, SIZE);
     copyAra(ara, insertionAra, SIZE);
-    copyAra(ara, customAra, SIZE);
+    //copyAra(ara, customAra, SIZE);
+    copyAra(ara, quickAra, SIZE);
 
-    Sort<int> sort;
+    Sort<float> sort;
 
-   // time = std::clock();
-   // sort.bubble(bubbleAra, SIZE);
-   // time = std::clock() - time;
-   // printTime(time, "Bubble Sort ");
+    time = std::clock();
+    sort.bubble(bubbleAra, SIZE);
+    time = std::clock() - time;
+    printTime(time, "Bubble Sort ");
 
     time = std::clock();
     sort.selection(selectionAra, SIZE);
@@ -60,11 +61,18 @@ int main()
     time = std::clock() - time;
     printTime(time, "Insertion Sort ");
     
+    //time = std::clock();
+    //sort.custom(customAra, 10000, SIZE);
+    //time = std::clock() - time;
+    //printTime(time, "Custom Sort ");
+    
     time = std::clock();
-    sort.custom(customAra, 100000, SIZE);
+    sort.quick(quickAra, 0, SIZE-1);
     time = std::clock() - time;
-    printTime(time, "Custom Sort ");
-
+    printTime(time, "Quick Sort ");
+    
+    //printArray(quickAra, SIZE, "Quick sort: ");
+    
     return 0;
 }
 

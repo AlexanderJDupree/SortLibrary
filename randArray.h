@@ -14,6 +14,9 @@
 *
 * 06-APR-18 - Templated Random class, updated comments.
 *
+* 08-APR-18 - renamed RandArray.h and source file to randArray.h to reflect 
+*             proper camel case
+*
 * TODO Ensure unique sort does not try to fill an array where the min/max range
 *      less than the actual size of the array
 ******************************************************************************/
