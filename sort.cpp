@@ -151,6 +151,5 @@ int Sort<T>::partition(T ara[], int left, int right)
     ara[right] = temp;
 
     return (i + 1);
-
 }
 
